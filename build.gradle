@@ -1,0 +1,30 @@
+plugins{
+    id'java'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+}
+
+dependencies {
+    implementation group: 'io.karatelabs', name: 'karate-junit5', version: '1.5.0'
+    implementation group: 'net.datafaker', name: 'datafaker', version: '2.4.2'
+    implementation group: 'net.masterthought', name: 'cucumber-reporting', version: '5.8.1'
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
